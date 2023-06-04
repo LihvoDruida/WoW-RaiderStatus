@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_gravity="bottom"
+    app:layout_behavior="android.support.design.widget.BottomSheetBehavior">
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@android:color/transparent"
+        android:clipToPadding="false"
+        android:paddingTop="@dimen/l1"
+        app:layout_behavior="android.support.design.widget.BottomSheetBehavior">
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cardDialog"
+            style="@style/ThemeSheet"
+            android:layout_height="wrap_content">
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                style="@style/W.Home.Item"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/dragIndicator"
+                    android:layout_width="48dp"
+                    android:layout_height="4dp"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="@dimen/margin_generic"
+                    android:layout_marginBottom="@dimen/margin_generic"
+                    android:contentDescription="@string/todo"
+                    android:src="@drawable/drag" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <LinearLayout
+                            android:id="@+id/char_name"
+                            style="@style/W.Home.Item.Top"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent">
+
+                            <TextView
+                                style="@style/W.Home.ItemContent"
+                                android:layout_width="wrap_content"
+                                android:text="@string/char_name_title"
+                                android:textSize="14sp" />
+
+                            <EditText
+                                android:id="@+id/nameEditText"
+                                style="@style/W.Home.ItemContent.Right"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:hint="Name"
+                                android:maxLines="1"
+                                android:singleLine="true"
+                                android:textSize="14sp" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/realm"
+                            style="@style/W.Home.Item"
+                            app:layout_constraintStart_toStartOf="@+id/char_name"
+                            app:layout_constraintTop_toBottomOf="@+id/char_name">
+
+                            <TextView
+                                style="@style/W.Home.ItemContent"
+                                android:layout_width="wrap_content"
+                                android:text="@string/char_realm_title"
+                                android:textSize="14sp" />
+
+                            <EditText
+                                android:id="@+id/realmEditText"
+                                style="@style/W.Home.ItemContent.Right"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:hint="Realm"
+                                android:maxLines="1"
+                                android:singleLine="true"
+                                android:textSize="14sp" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/home_device_chidori"
+                            style="@style/W.Home.Item.Bottom"
+                            app:layout_constraintStart_toStartOf="@+id/realm"
+                            app:layout_constraintTop_toBottomOf="@+id/realm">
+
+                            <TextView
+                                style="@style/W.Home.ItemContent"
+                                android:layout_width="wrap_content"
+                                android:text="@string/char_region_title"
+                                android:textSize="14sp" />
+
+                            <Spinner
+                                android:id="@+id/regionSpinner"
+                                style="@style/W.Home.ItemContent.Right"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:entries="@array/region_array"
+                                android:textSize="14sp" />
+
+                        </LinearLayout>
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                </LinearLayout>
+
+                <Button
+                    android:id="@+id/addButton"
+                    style="@style/WidgetFoundation.Button"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Add" />
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+</androidx.core.widget.NestedScrollView>

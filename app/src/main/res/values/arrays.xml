@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+<string-array name="region_array">
+    <item>US</item>
+    <item>EU</item>
+    <item>TW</item>
+    <item>KR</item>
+    <item>CN</item>
+</string-array>
+</resources>

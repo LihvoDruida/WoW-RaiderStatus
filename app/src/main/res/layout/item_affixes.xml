@@ -1,0 +1,37 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:layout_gravity="center"
+    android:clickable="true"
+    tools:ignore="UseCompoundDrawables">
+
+    <TextView
+        android:id="@+id/affixLevel"
+        style="@style/W.Home.ItemContent"
+        android:layout_marginTop="4dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:textStyle="bold"
+        android:textAppearance="@style/AppearanceFoundation.Caption.Primary"
+        android:text="+11" />
+
+    <ImageView
+        style="@style/WidgetFoundation.Image.Big.Round"
+        android:id="@+id/affixImage"
+        android:layout_margin="8dp"
+        android:layout_gravity="center"
+        android:contentDescription="TODO" />
+
+    <TextView
+        android:id="@+id/affixName"
+        style="@style/W.Home.ItemContent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:text="@string/app_name" />
+
+</LinearLayout>
+

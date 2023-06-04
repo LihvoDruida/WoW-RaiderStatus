@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="ThemeFoundationColor.Default">
+        <item name="colorPrimary">#333333</item>
+        <item name="colorPrimaryVariant">#80333333</item>
+        <item name="colorSecondary">#535353</item>
+        <item name="colorSecondaryVariant">#80535353</item>
+        <item name="colorSurface">#0D0D0D</item>
+        <item name="colorSurfaceVariant">#171717</item>
+        <item name="colorSurfaceSurfaceVariant">#292929</item>
+        <item name="colorOnPrimary">#F9F9F9</item>
+        <item name="colorOnPrimaryVariant">#D9E6E6E6</item>
+        <item name="colorOnSecondary">#F9F9F9</item>
+        <item name="colorOnBackground">?colorOnSurface</item>
+        <item name="colorError">#EF8282</item>
+        <item name="colorOnError">#0D0D0D</item>
+        <item name="colorOnSurface">#D8D8D8</item>
+        <item name="colorOnSurfaceVariant">#CCBABABA</item>
+        <item name="colorDisabled">#808080</item>
+        <item name="colorDisabledVariant">#66808080</item>
+    </style>
+
+    <style name="ThemeFoundationColor.Green" parent="ThemeFoundationColor.Default">
+        <item name="colorPrimary">#6EBD91</item>
+        <item name="colorPrimaryVariant">#806EBD91</item>
+        <item name="colorSecondary">#4E9472</item>
+        <item name="colorSecondaryVariant">#804E9472</item>
+    </style>
+    </resources>

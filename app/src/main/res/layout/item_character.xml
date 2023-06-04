@@ -1,0 +1,426 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical">
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cardCharItem"
+        style="@style/WidgetFoundation.Card"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:focusable="false"
+        android:clickable="false"
+        android:hardwareAccelerated="true"
+        android:layout_marginStart="@dimen/l1"
+        android:layout_marginEnd="@dimen/l1"
+        android:layout_marginBottom="@dimen/l1"
+        android:paddingBottom="@dimen/l1"
+        android:layout_gravity="center"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/l1"
+            android:layout_marginBottom="@dimen/l1"
+            android:layout_marginStart="@dimen/l1"
+            android:layout_marginEnd="@dimen/l1">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:baselineAligned="false"
+                android:weightSum="3"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:id="@+id/block3"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:baselineAligned="false"
+                    android:layout_marginEnd="2dp"
+                    android:layout_weight="2"
+                    android:weightSum="10"
+                    android:orientation="vertical">
+
+                    <RelativeLayout
+                        android:id="@+id/newsImageView"
+                        android:layout_width="match_parent"
+                        android:layout_height="148sp"
+                        android:layout_gravity="center">
+
+                        <ImageView
+                            android:id="@+id/char_avatar"
+                            android:layout_width="match_parent"
+                            android:layout_height="142sp"
+                            android:adjustViewBounds="true"
+                            android:contentDescription="@string/todo"
+                            android:padding="@dimen/l1"
+                            android:scaleType="fitXY"
+                            android:scaleX="1.4"
+                            android:scaleY="1"
+                            android:src="@drawable/ic_logo"
+                            app:layout_constraintHorizontal_bias="0.0" />
+
+                        <TextView
+                            android:id="@+id/char_name"
+                            style="@style/NewsArticle.Title"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentBottom="true"
+                            android:layout_gravity="center"
+                            android:layout_weight="4"
+
+                            android:maxLines="1"
+                            android:text="@string/char_name_title"
+                            android:textAlignment="center"
+                            android:textAppearance="@style/AppearanceFoundation.Title"
+                            android:textSize="16sp" />
+                    </RelativeLayout>
+
+                    <LinearLayout
+                        android:id="@+id/group_guild"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:weightSum="2"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/char_avatar">
+
+                        <TextView
+                            style="@style/W.Home.Item"
+                            android:id="@+id/char_faction"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textAlignment="center"
+                            android:layout_marginTop="4dp"
+                            android:maxLines="1"
+                            android:text="@string/char_name_title"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Widget.ActionBar.Subtitle"
+                            android:textSize="14sp" />
+
+                        <TextView
+                            style="@style/W.Home.Item"
+                            android:id="@+id/char_region"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textAlignment="center"
+                            android:layout_marginTop="4dp"
+                            android:maxLines="1"
+                            android:text="@string/char_name_title"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Widget.ActionBar.Subtitle"
+                            android:textSize="14sp" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="4dp"
+                            android:layout_marginBottom="@dimen/l_50"
+                            android:orientation="horizontal"
+                            android:gravity="center"
+                            android:weightSum="3">
+                        <Button
+                            android:id="@+id/screenshot"
+                            style="@style/WidgetFoundation.Button.Text.Trash"
+                            android:layout_width="26dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal"
+                            android:textAllCaps="false"
+                            android:layout_marginRight="@dimen/l1"
+                            app:icon="@drawable/ic_screenshot"
+                            app:iconSize="24dp"/>
+                        <Button
+                            android:id="@+id/delete"
+                            style="@style/WidgetFoundation.Button.Text.Trash"
+                            android:layout_width="26dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal"
+                            android:textAllCaps="false"
+                            app:icon="@drawable/ic_delete"
+                            app:iconSize="24dp"/>
+                        </LinearLayout>
+
+                    </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/block4"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:baselineAligned="false"
+                    android:layout_marginStart="2dp"
+                    android:layout_weight="1"
+                    android:weightSum="10"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:id="@+id/gen_info"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:layout_marginBottom="@dimen/l_50"
+                        android:orientation="horizontal"
+                        android:visibility="visible"
+                        android:weightSum="3">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:layout_weight="1">
+
+                            <ImageView
+                                style="@style/WidgetFoundation.Icon.Primary"
+                                android:layout_width="32dp"
+                                android:layout_height="32dp"
+                                android:layout_gravity="center"
+                                android:padding="@dimen/l_25"
+                                android:src="@drawable/ic_gear" />
+
+                            <TextView
+                                android:id="@+id/char_gear"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                style="@style/AppearanceFoundation.Title"
+                                android:textStyle="bold"
+                                android:textSize="16sp"
+                                android:layout_weight="1"
+                                android:gravity="center"
+                                android:maxLines="1"
+                                android:text="nonce"
+                                />
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:layout_weight="1">
+
+                            <ImageView
+                                style="@style/WidgetFoundation.Icon.Primary"
+                                android:layout_width="32dp"
+                                android:layout_height="32dp"
+                                android:layout_gravity="center"
+                                android:padding="@dimen/l_25"
+                                android:src="@drawable/ic_mythic" />
+
+                            <TextView
+                                android:id="@+id/char_mscore"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                style="@style/AppearanceFoundation.Title"
+                                android:textStyle="bold"
+                                android:textSize="16sp"
+                                android:layout_weight="1"
+                                android:maxLines="1"
+                                android:gravity="center"
+                                android:text="nonce"
+                                />
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:layout_weight="1">
+
+                            <ImageView
+                                style="@style/WidgetFoundation.Icon.Primary"
+                                android:layout_width="32dp"
+                                android:layout_height="32dp"
+                                android:layout_gravity="center"
+                                android:padding="@dimen/l_25"
+                                android:src="@drawable/ic_achievement" />
+
+                            <TextView
+                                android:id="@+id/char_achievement"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                style="@style/AppearanceFoundation.Title"
+                                android:textStyle="bold"
+                                android:textSize="16sp"
+                                android:layout_weight="1"
+                                android:maxLines="1"
+                                android:gravity="center"
+                                android:text="nonce"
+                                />
+                        </LinearLayout>
+
+
+                    </LinearLayout>
+                    <LinearLayout
+                        android:id="@+id/raids_liner"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:visibility="visible"
+                        android:weightSum="2">
+
+                        <TextView
+                            android:id="@+id/raids_title"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            style="@style/AppearanceFoundation.Title"
+                            android:layout_marginTop="4dp"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:layout_gravity="center"
+                            android:maxLines="1"
+                            android:text="@string/raids_title"
+                            android:textSize="15sp"/>
+
+                        <LinearLayout
+                            android:id="@+id/raids_info"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="4dp"
+                            android:orientation="horizontal"
+                            android:visibility="visible"
+                            android:weightSum="2">
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical"
+                                android:layout_weight="1">
+
+                                <TextView
+                                    android:id="@+id/raids1_name"
+                                    style="@style/AppearanceFoundation.Title"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:gravity="center"
+                                    android:maxLines="1"
+                                    android:text="nonce"
+                                    android:textSize="14sp"
+                                    android:textStyle="bold" />
+
+                                <TextView
+                                    android:id="@+id/raids1_score"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    style="@style/W.Home.ItemContent"
+                                    android:textStyle="bold"
+                                    android:textSize="14sp"
+                                    android:layout_weight="1"
+                                    android:gravity="center"
+                                    android:maxLines="1"
+                                    android:text="nonce"
+                                    />
+                            </LinearLayout>
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical"
+                                android:layout_weight="1">
+
+                                <TextView
+                                    android:id="@+id/raids2_name"
+                                    style="@style/AppearanceFoundation.Title"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:gravity="center"
+                                    android:maxLines="1"
+                                    android:text="nonce"
+                                    android:textSize="14sp"
+                                    android:textStyle="bold" />
+
+                                <TextView
+                                    android:id="@+id/raids2_score"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    style="@style/W.Home.ItemContent"
+                                    android:textStyle="bold"
+                                    android:textSize="14sp"
+                                    android:layout_weight="1"
+                                    android:gravity="center"
+                                    android:maxLines="1"
+                                    android:text="nonce"
+                                    />
+                            </LinearLayout>
+
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/race_info"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        style="@style/W.Home.Item.Top"
+                        android:orientation="horizontal"
+                        android:weightSum="3">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="2"
+                            style="@style/W.Home.ItemContent"
+                            android:text="@string/race_title" />
+
+                        <TextView
+                            android:id="@+id/race_text"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            style="@style/W.Home.ItemContent.Right"
+                            tools:text="onclite" />
+
+                    </LinearLayout>
+                    <LinearLayout
+                        android:id="@+id/class_info"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        style="@style/W.Home.Item"
+                        android:orientation="horizontal"
+                        android:weightSum="3">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="2"
+                            style="@style/W.Home.ItemContent"
+                            android:text="@string/class_title" />
+
+                        <TextView
+                            android:id="@+id/class_text"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            style="@style/W.Home.ItemContent.Right"
+                            tools:text="onclite" />
+
+                    </LinearLayout>
+                    <LinearLayout
+                        android:id="@+id/guild_info"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        style="@style/W.Home.Item.Bottom"
+                        android:orientation="horizontal"
+                        android:weightSum="3">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="2"
+                            style="@style/W.Home.ItemContent"
+                            android:text="@string/guild_title" />
+
+                        <TextView
+                            android:id="@+id/guild_text"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            style="@style/W.Home.ItemContent.Right"
+                            tools:text="onclite" />
+
+                    </LinearLayout>
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.card.MaterialCardView>
+</LinearLayout>

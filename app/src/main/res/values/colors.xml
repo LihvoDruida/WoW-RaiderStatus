@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorFalse">#E53935</color>
+    <color name="colorTrue">#4CAF50</color>
+    <color name="google_gray">#B35F6368</color>
+    <color name="colorToolbar">#F9F9F9</color>
+    <color name="colorNav">#333333</color>
+
+    <!-- Default factions color. -->
+    <color name="ALLIANCE">#0078ff</color>
+    <color name="HORDE">#b30000</color>
+
+    <color name="ALLIANCE_CARD">#140078FF</color>
+    <color name="HORDE_CARD">#14B30000</color>
+
+    <!-- Class colors. -->
+    <color name="DEATHKNIGHT">#c41e3b</color>
+    <color name="DEMONHUNTER">#a330c9</color>
+    <color name="DRUID">#ff7c0a</color>
+    <color name="EVOKER">#33937f</color>
+    <color name="HUNTER">#aad372</color>
+    <color name="MAGE">#68ccef</color>
+    <color name="MONK">#00ffba</color>
+    <color name="PALADIN">#f48cba</color>
+    <color name="PRIEST">#f0ebe0</color>
+    <color name="ROGUE">#fff468</color>
+    <color name="SHAMAN">#2359ff</color>
+    <color name="WARLOCK">#9382c9</color>
+    <color name="WARRIOR">#c69b6d</color>
+
+    <color name="LEGENDARY">#ff8000</color>
+    <color name="EPIC">#c600ff</color>
+    <color name="RARE">#0081ff</color>
+    <color name="UNCOMMON">#1eff00</color>
+
+</resources>

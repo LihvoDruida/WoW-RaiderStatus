@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--region News Article -->
+    <style name="NewsArticle" />
+
+    <style name="NewsArticle.Desc" parent="AppearanceFoundation.Caption">
+        <item name="android:maxLines">3</item>
+    </style>
+
+    <style name="NewsArticle.Title">
+        <item name="android:background">?colorSecondary</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:shadowColor">?colorPrimary</item>
+        <item name="android:textColorHint">?colorSecondary</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:padding">@dimen/overlain</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:autoSizeTextType">uniform</item>
+    </style>
+</resources>

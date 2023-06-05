@@ -130,7 +130,7 @@
                             android:layout_gravity="center_horizontal"
                             android:textAllCaps="false"
                             android:layout_marginRight="@dimen/l1"
-                            app:icon="@drawable/ic_screenshot"
+                            app:icon="@drawable/ic_screenshot_v2"
                             app:iconSize="24dp"/>
                         <Button
                             android:id="@+id/delete"
@@ -139,7 +139,7 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_horizontal"
                             android:textAllCaps="false"
-                            app:icon="@drawable/ic_delete"
+                            app:icon="@drawable/ic_delete_v2"
                             app:iconSize="24dp"/>
                         </LinearLayout>
 

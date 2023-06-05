@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <color name="status_bar">#333333</color>
     <color name="colorFalse">#E53935</color>
     <color name="colorTrue">#4CAF50</color>
     <color name="google_gray">#B35F6368</color>

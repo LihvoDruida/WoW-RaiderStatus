@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <style name="ThemeFoundationColor.Default">
-        <item name="colorPrimary">#333333</item>
-        <item name="colorPrimaryVariant">#80333333</item>
-        <item name="colorSecondary">#535353</item>
-        <item name="colorSecondaryVariant">#80535353</item>
+        <item name="colorPrimary">#D8D8D8</item>
+        <item name="colorPrimaryVariant">#CCBABABA</item>
+        <item name="colorSecondary">#808080</item>
+        <item name="colorSecondaryVariant">#66808080</item>
         <item name="colorSurface">#0D0D0D</item>
         <item name="colorSurfaceVariant">#171717</item>
         <item name="colorSurfaceSurfaceVariant">#292929</item>

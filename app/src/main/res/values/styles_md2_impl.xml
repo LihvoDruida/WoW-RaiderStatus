@@ -8,7 +8,7 @@
         <item name="titleTextColor">@color/colorToolbar</item>
         <item name="subtitleTextAppearance">@style/AppearanceFoundation.Caption</item>
         <item name="subtitleTextColor">@color/colorToolbar</item>
-        <item name="android:background">?colorPrimary</item>
+        <item name="android:background">@color/status_bar</item>
         <item name="contentInsetStartWithNavigation">0dp</item>
         <item name="android:layout_height">?actionBarSize</item>
         <item name="android:theme">@style/ThemeOverlay.MaterialComponents.ActionBar</item>

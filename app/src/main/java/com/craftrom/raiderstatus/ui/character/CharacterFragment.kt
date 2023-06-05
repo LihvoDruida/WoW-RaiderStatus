@@ -9,7 +9,6 @@ import android.content.res.ColorStateList
 import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.graphics.Color
-import android.graphics.drawable.RippleDrawable
 import android.os.Bundle
 import android.provider.MediaStore
 import android.view.LayoutInflater
@@ -17,8 +16,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.Toast
-import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.core.content.ContextCompat
+import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -32,11 +31,9 @@ import com.craftrom.raiderstatus.utils.CharacterDataFetcher
 import com.craftrom.raiderstatus.utils.Constants.getSeasonName
 import com.craftrom.raiderstatus.utils.Constants.isInternetAvailable
 import com.google.android.material.bottomsheet.BottomSheetDialog
-import com.google.android.material.snackbar.Snackbar
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import com.squareup.picasso.Picasso
-import java.util.*
 
 class CharacterFragment : Fragment() {
 
@@ -104,14 +101,25 @@ class CharacterFragment : Fragment() {
         val dialogBinding = DialogCharacterBinding.inflate(LayoutInflater.from(context))
         dialog.setContentView(dialogBinding.root)
 
+        updateButtonState(dialogBinding) // Оновлюємо стан кнопки після встановлення слухача
+
+        dialogBinding.nameEditText.addTextChangedListener {
+            updateButtonState(dialogBinding) // Оновлюємо стан кнопки після зміни тексту в полі name
+        }
+
+        dialogBinding.realmEditText.addTextChangedListener {
+            updateButtonState(dialogBinding) // Оновлюємо стан кнопки після зміни тексту в полі realm
+        }
+
         dialogBinding.addButton.setOnClickListener {
             val name = dialogBinding.nameEditText.text.toString()
             val realm = dialogBinding.realmEditText.text.toString()
             val region = dialogBinding.regionSpinner.selectedItem.toString()
             dialogBinding.nameEditText.requestFocus()
-            if (name.isNotBlank() && realm.isNotBlank()) {
-                val character = Character(name, realm, region)
 
+            if (name.isNotBlank() && realm.isNotBlank()) {
+                // Виконуємо дії, коли умова виконується
+                val character = Character(name, realm, region)
                 characterList.add(character)
                 characterAdapter.notifyItemInserted(characterList.size - 1)
 
@@ -142,6 +150,16 @@ class CharacterFragment : Fragment() {
 
         return dialog
     }
+
+    private fun updateButtonState(dialogBinding: DialogCharacterBinding) {
+        val name = dialogBinding.nameEditText.text.toString()
+        val realm = dialogBinding.realmEditText.text.toString()
+
+        val isButtonEnabled = name.isNotBlank() && realm.isNotBlank()
+        dialogBinding.addButton.isEnabled = isButtonEnabled
+    }
+
+
 
     data class Character(
         val name: String,

@@ -119,6 +119,8 @@
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
+                                android:dropDownVerticalOffset="-8dp"
+                                android:dropDownWidth="256dp"
                                 android:entries="@array/region_array"
                                 android:textSize="14sp" />
 

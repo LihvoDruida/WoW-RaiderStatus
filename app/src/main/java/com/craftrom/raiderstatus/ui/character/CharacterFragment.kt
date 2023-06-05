@@ -108,7 +108,7 @@ class CharacterFragment : Fragment() {
             val name = dialogBinding.nameEditText.text.toString()
             val realm = dialogBinding.realmEditText.text.toString()
             val region = dialogBinding.regionSpinner.selectedItem.toString()
-
+            dialogBinding.nameEditText.requestFocus()
             if (name.isNotBlank() && realm.isNotBlank()) {
                 val character = Character(name, realm, region)
 

@@ -61,10 +61,13 @@
                             <EditText
                                 android:id="@+id/nameEditText"
                                 style="@style/W.Home.ItemContent.Right"
-                                android:layout_width="match_parent"
+                                android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
                                 android:hint="Name"
+                                android:nextFocusForward="@+id/realmEditText"
+                                android:imeOptions="actionNext"
+                                android:inputType="text"
                                 android:maxLines="1"
                                 android:singleLine="true"
                                 android:textSize="14sp" />
@@ -86,11 +89,13 @@
                             <EditText
                                 android:id="@+id/realmEditText"
                                 style="@style/W.Home.ItemContent.Right"
-                                android:layout_width="match_parent"
+                                android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
                                 android:hint="Realm"
                                 android:maxLines="1"
+                                android:imeOptions="actionDone"
+                                android:inputType="text"
                                 android:singleLine="true"
                                 android:textSize="14sp" />
 

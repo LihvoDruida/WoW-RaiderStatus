@@ -29,6 +29,7 @@ import com.craftrom.raiderstatus.databinding.DialogCharacterBinding
 import com.craftrom.raiderstatus.databinding.FragmentCharacterBinding
 import com.craftrom.raiderstatus.databinding.ItemCharacterBinding
 import com.craftrom.raiderstatus.utils.CharacterDataFetcher
+import com.craftrom.raiderstatus.utils.Constants.getSeasonName
 import com.craftrom.raiderstatus.utils.Constants.isInternetAvailable
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.snackbar.Snackbar
@@ -169,8 +170,23 @@ class CharacterFragment : Fragment() {
             val character = characterList[position]
             val binding = holder.binding
             val context = binding.root.context
-
+            val season = character.characterData?.mythic_plus_scores_by_season?.firstOrNull()?.season
             val itemLevelEquipped = character.characterData?.gear?.item_level_equipped ?: 0
+            val alpha = 64 // Значення прозорості (від 0 до 255, де 0 - повна прозорість, 255 - повна непрозорість)
+
+            val dividerBgColor = when (character.characterData?.faction) {
+                "alliance" -> {
+                    val color = ContextCompat.getColor(context, R.color.ALLIANCE)
+                    Color.argb(alpha, Color.red(color), Color.green(color), Color.blue(color))
+                }
+                "horde" -> {
+                    val color = ContextCompat.getColor(context, R.color.HORDE)
+                    Color.argb(alpha, Color.red(color), Color.green(color), Color.blue(color))
+                }
+                else -> {
+                    Color.TRANSPARENT
+                }
+            }
 
             val foregroundCardColor = when (character.characterData?.faction) {
                 "alliance" -> ContextCompat.getColor(context, R.color.ALLIANCE_CARD)
@@ -214,13 +230,14 @@ class CharacterFragment : Fragment() {
                 .load(character.characterData?.thumbnail_url)
                 .error(R.drawable.ic_logo)
                 .into(binding.charAvatar)
+            binding.seasonTitle.text = getSeasonName(season.toString())
             binding.charName.text = character.characterData?.name ?: "-"
             binding.charName.setTextColor(classColor)
             binding.charRegion.text = regionName
             binding.charFaction.text = factionName
             binding.raceText.text = character.characterData?.race ?: "-"
             binding.classText.text =
-                "${character.characterData?.charClass ?: "-"} (${character.characterData?.active_spec_name ?: "-"} )"
+                "${character.characterData?.charClass ?: "-"} (${character.characterData?.active_spec_name ?: "-"})"
             binding.guildText.text = "<${character.characterData?.guild?.name}>"
             binding.raids1Name.setText(R.string.raids_one)
             binding.raids1Score.text =
@@ -240,13 +257,14 @@ class CharacterFragment : Fragment() {
             val textColor = ContextCompat.getColor(context, colorResId)
             binding.charGear.setTextColor(textColor)
             binding.charMscore.text =
-                (character.characterData?.mythic_plus_scores_by_season?.find { it.season == "season-df-2" }?.segments?.all?.score
+                (character.characterData?.mythic_plus_scores_by_season?.find { it.season == season }?.segments?.all?.score
                     ?: "-").toString()
-            val mColor = character.characterData?.mythic_plus_scores_by_season?.find { it.season == "season-df-2" }?.segments?.all?.color
+            val mColor = character.characterData?.mythic_plus_scores_by_season?.find { it.season == season }?.segments?.all?.color
             if (mColor != null && mColor.isNotEmpty()) {
                 val colorInt = Color.parseColor(mColor)
                 binding.charMscore.setTextColor(colorInt)
             }
+            binding.charDivider.setBackgroundColor(dividerBgColor)
 
             holder.deleteButton.setOnClickListener {
                 val index = holder.adapterPosition

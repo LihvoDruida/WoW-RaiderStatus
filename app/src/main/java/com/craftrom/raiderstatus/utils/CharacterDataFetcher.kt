@@ -4,10 +4,7 @@ import android.util.Log
 import com.craftrom.raiderstatus.core.CharacterData
 import com.craftrom.raiderstatus.ui.character.CharacterFragment.Character
 import com.google.gson.Gson
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
+import kotlinx.coroutines.*
 import java.io.BufferedReader
 import java.io.InputStreamReader
 import java.net.HttpURLConnection
@@ -15,6 +12,7 @@ import java.net.URL
 
 class CharacterDataFetcher(private val character: Character) {
 
+    @OptIn(DelicateCoroutinesApi::class)
     fun fetchCharacterData(callback: (CharacterData?) -> Unit) {
         GlobalScope.launch(Dispatchers.IO) {
             try {

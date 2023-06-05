@@ -21,4 +21,14 @@ object Constants {
             connectivityManager.getNetworkCapabilities(networkCapabilities) ?: return false
         return capabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)
     }
+    fun getSeasonName(season: String): String {
+        return when (season) {
+            "season-df-1" -> "DF Season 1"
+            "season-df-2" -> "DF Season 2"
+            "season-df-3" -> "DF Season 3"
+            "season-df-4" -> "DF Season 4"
+            else -> "Unknown Season"
+        }
+    }
+
 }

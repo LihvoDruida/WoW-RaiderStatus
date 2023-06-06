@@ -21,6 +21,7 @@
     <string name="char_name_title">Name:</string>
     <string name="char_realm_title">Realm:</string>
     <string name="char_region_title">Region:</string>
+    <string name="char_dialog_title">Adding a character</string>
 
     <string name="alliance">Alliance</string>
     <string name="horde">Horde</string>

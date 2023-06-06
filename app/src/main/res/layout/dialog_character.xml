@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_gravity="bottom"
+    android:elevation="17dp"
     app:layout_behavior="android.support.design.widget.BottomSheetBehavior">
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
@@ -12,6 +12,7 @@
         android:layout_height="match_parent"
         android:background="@android:color/transparent"
         android:clipToPadding="false"
+
         android:paddingTop="@dimen/l1"
         app:layout_behavior="android.support.design.widget.BottomSheetBehavior">
 
@@ -27,15 +28,13 @@
                 style="@style/W.Home.Item"
                 android:orientation="vertical">
 
-                <ImageView
-                    android:id="@+id/dragIndicator"
-                    android:layout_width="48dp"
-                    android:layout_height="4dp"
-                    android:layout_gravity="center"
-                    android:layout_marginTop="@dimen/margin_generic"
-                    android:layout_marginBottom="@dimen/margin_generic"
-                    android:contentDescription="@string/todo"
-                    android:src="@drawable/drag" />
+                <TextView
+                    style="@style/W.Home.Item.Top"
+                    android:paddingTop="@dimen/l1"
+                    android:layout_width="wrap_content"
+                    android:textAppearance="@style/AppearanceFoundation.Caption"
+                    android:text="@string/char_dialog_title"
+                    android:textSize="12sp" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -56,7 +55,7 @@
                                 style="@style/W.Home.ItemContent"
                                 android:layout_width="wrap_content"
                                 android:text="@string/char_name_title"
-                                android:textSize="14sp" />
+                                android:textSize="16sp" />
 
                             <EditText
                                 android:id="@+id/nameEditText"
@@ -70,7 +69,7 @@
                                 android:inputType="text"
                                 android:maxLines="1"
                                 android:singleLine="true"
-                                android:textSize="14sp" />
+                                android:textSize="16sp" />
 
                         </LinearLayout>
 
@@ -84,7 +83,7 @@
                                 style="@style/W.Home.ItemContent"
                                 android:layout_width="wrap_content"
                                 android:text="@string/char_realm_title"
-                                android:textSize="14sp" />
+                                android:textSize="16sp" />
 
                             <EditText
                                 android:id="@+id/realmEditText"
@@ -97,7 +96,7 @@
                                 android:imeOptions="actionDone"
                                 android:inputType="text"
                                 android:singleLine="true"
-                                android:textSize="14sp" />
+                                android:textSize="16sp" />
 
                         </LinearLayout>
 
@@ -111,7 +110,7 @@
                                 style="@style/W.Home.ItemContent"
                                 android:layout_width="wrap_content"
                                 android:text="@string/char_region_title"
-                                android:textSize="14sp" />
+                                android:textSize="16sp" />
 
                             <Spinner
                                 android:id="@+id/regionSpinner"
@@ -122,7 +121,7 @@
                                 android:dropDownVerticalOffset="-8dp"
                                 android:dropDownWidth="256dp"
                                 android:entries="@array/region_array"
-                                android:textSize="14sp" />
+                                android:textSize="16sp" />
 
                         </LinearLayout>
                     </androidx.constraintlayout.widget.ConstraintLayout>
@@ -137,4 +136,4 @@
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
-</androidx.core.widget.NestedScrollView>
+</FrameLayout>

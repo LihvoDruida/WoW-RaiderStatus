@@ -24,6 +24,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.craftrom.raiderstatus.MainActivity
 import com.craftrom.raiderstatus.R
 import com.craftrom.raiderstatus.core.CharacterData
+import com.craftrom.raiderstatus.core.database.CharacterDatabaseHelper
 import com.craftrom.raiderstatus.databinding.DialogCharacterBinding
 import com.craftrom.raiderstatus.databinding.FragmentCharacterBinding
 import com.craftrom.raiderstatus.databinding.ItemCharacterBinding
@@ -31,16 +32,23 @@ import com.craftrom.raiderstatus.utils.CharacterDataFetcher
 import com.craftrom.raiderstatus.utils.Constants.getSeasonName
 import com.craftrom.raiderstatus.utils.Constants.isInternetAvailable
 import com.google.android.material.bottomsheet.BottomSheetDialog
-import com.google.gson.Gson
-import com.google.gson.reflect.TypeToken
 import com.squareup.picasso.Picasso
+import kotlinx.coroutines.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import kotlin.coroutines.resume
+import kotlin.coroutines.suspendCoroutine
 
+@OptIn(DelicateCoroutinesApi::class)
 class CharacterFragment : Fragment() {
 
     private lateinit var characterList: MutableList<Character>
     private var _binding: FragmentCharacterBinding? = null
     private val binding get() = _binding!!
     private lateinit var characterAdapter: CharacterAdapter
+    lateinit var characterDatabaseHelper: CharacterDatabaseHelper
+
 
     override fun onResume() {
         super.onResume()
@@ -56,6 +64,7 @@ class CharacterFragment : Fragment() {
         _binding = FragmentCharacterBinding.inflate(inflater, container, false)
         val view = binding.root
         val internetAvailable = isInternetAvailable(requireContext())
+        characterDatabaseHelper = CharacterDatabaseHelper(requireContext())
 
         characterList = mutableListOf()
 
@@ -65,18 +74,9 @@ class CharacterFragment : Fragment() {
             adapter = characterAdapter
         }
 
-        // Restore character list from shared preferences
-        val sharedPreferences = requireContext().getSharedPreferences(
-            "CharacterData",
-            Context.MODE_PRIVATE
-        )
-        val savedCharacterList = sharedPreferences.getString("characterList", null)
-
-        if (!savedCharacterList.isNullOrEmpty()) {
-            val type = object : TypeToken<MutableList<Character>>() {}.type
-            characterList.addAll(Gson().fromJson(savedCharacterList, type))
-            characterAdapter.notifyItemRangeInserted(0, characterList.size)
-        }
+        // Restore character list from SQLite
+        characterList.addAll(characterDatabaseHelper.loadCharacters())
+        characterAdapter.notifyDataSetChanged()
 
         binding.fab.setOnClickListener {
             val context = binding.root.context
@@ -85,20 +85,15 @@ class CharacterFragment : Fragment() {
         }
 
         if (internetAvailable) {
-            characterList.forEachIndexed { index, character ->
-                CharacterDataFetcher(character).fetchCharacterData { characterData ->
-                    characterList[index] = character.copy(characterData = characterData)
-                    characterAdapter.notifyItemChanged(index)
-                }
-            }
+            fetchChar()
         }
 
         return view
     }
-
     private fun createBottomSheetDialog(context: Context): BottomSheetDialog {
         val dialog = BottomSheetDialog(context, R.style.ThemeBottomSheet)
         val dialogBinding = DialogCharacterBinding.inflate(LayoutInflater.from(context))
+        val internetAvailable = isInternetAvailable(requireContext())
         dialog.setContentView(dialogBinding.root)
 
         updateButtonState(dialogBinding) // Оновлюємо стан кнопки після встановлення слухача
@@ -116,32 +111,20 @@ class CharacterFragment : Fragment() {
             val realm = dialogBinding.realmEditText.text.toString()
             val region = dialogBinding.regionSpinner.selectedItem.toString()
             dialogBinding.nameEditText.requestFocus()
+            val character = Character(name, realm, region)
 
             if (name.isNotBlank() && realm.isNotBlank()) {
-                // Виконуємо дії, коли умова виконується
-                val character = Character(name, realm, region)
+                characterDatabaseHelper.saveCharacter(character)
+
+                // Додати персонажа до списку та оновити адаптер
                 characterList.add(character)
                 characterAdapter.notifyItemInserted(characterList.size - 1)
 
-                val sharedPreferences = requireContext().getSharedPreferences(
-                    "CharacterData",
-                    Context.MODE_PRIVATE
-                )
-                val editor = sharedPreferences.edit()
-                val characterListJson = Gson().toJson(characterList)
-                editor.putString("characterList", characterListJson)
-                editor.apply()
-
-                val dataFetcher = CharacterDataFetcher(character)
-                dataFetcher.fetchCharacterData { characterData ->
-                    val index = characterList.indexOf(character)
-                    if (index != -1) {
-                        characterList[index] = character.copy(characterData = characterData)
-                        characterAdapter.notifyItemChanged(index)
-                    }
-                }
-
                 dialog.dismiss()
+                updateCharacterList()
+                if (internetAvailable) {
+                    fetchChar()
+                }
             }
         }
 
@@ -150,6 +133,14 @@ class CharacterFragment : Fragment() {
 
         return dialog
     }
+
+    private fun updateCharacterList() {
+        val characters = characterDatabaseHelper.loadCharacters()
+        characterList.clear()
+        characterList.addAll(characters)
+        characterAdapter.notifyDataSetChanged()
+    }
+
 
     private fun updateButtonState(dialogBinding: DialogCharacterBinding) {
         val name = dialogBinding.nameEditText.text.toString()
@@ -190,6 +181,7 @@ class CharacterFragment : Fragment() {
             val context = binding.root.context
             val season = character.characterData?.mythic_plus_scores_by_season?.firstOrNull()?.season
             val itemLevelEquipped = character.characterData?.gear?.item_level_equipped ?: 0
+            val characterDatabaseHelper = CharacterDatabaseHelper(context)
             val alpha = 64 // Значення прозорості (від 0 до 255, де 0 - повна прозорість, 255 - повна непрозорість)
 
             val dividerBgColor = when (character.characterData?.faction) {
@@ -290,14 +282,10 @@ class CharacterFragment : Fragment() {
                     characterList.removeAt(index)
                     notifyItemRemoved(index)
 
-                    val sharedPreferences = context.getSharedPreferences(
-                        "CharacterData",
-                        Context.MODE_PRIVATE
-                    )
-                    val editor = sharedPreferences.edit()
-                    val characterListJson = Gson().toJson(characterList)
-                    editor.putString("characterList", characterListJson)
-                    editor.apply()
+                    // Видалити персонажа з бази даних SQLite
+                    characterDatabaseHelper.deleteCharacter(character.name)
+
+                    Toast.makeText(context, "Персонаж видалено", Toast.LENGTH_SHORT).show()
                 }
             }
 
@@ -305,7 +293,7 @@ class CharacterFragment : Fragment() {
                 // Set the hardware layer type to enable the animation
                 binding.cardCharItem.setLayerType(View.LAYER_TYPE_HARDWARE, null)
                 // Define the alpha animation
-                val alphaAnimator = ObjectAnimator.ofFloat(binding.cardCharItem, "alpha", 0f, 1f).apply {
+                val alphaAnimator = ObjectAnimator.ofFloat(binding.cardCharItem, "alpha", .5f, 1f).apply {
                     duration = 200 // Set the duration of each half of the blink effect (in milliseconds)
                     repeatCount = 1 // Set the number of times the animation should repeat (adjust as desired)
                     repeatMode = ValueAnimator.REVERSE // Reverse the animation to create the blink effect
@@ -352,12 +340,30 @@ class CharacterFragment : Fragment() {
             }
         }
     }
+    private fun fetchChar(){
+        // Використовуємо корутину для виконання запитів паралельно
+        GlobalScope.launch(Dispatchers.Main) {
+            characterList.forEachIndexed { index, character ->
+                val characterData = fetchCharacterData(character)
+                characterList[index] = character.copy(characterData = characterData)
+                characterAdapter.notifyItemChanged(index)
+            }
+        }
+    }
+    private suspend fun fetchCharacterData(character: Character): CharacterData? {
+        return suspendCoroutine { continuation ->
+            CharacterDataFetcher(character).fetchCharacterData { characterData ->
+                continuation.resume(characterData)
+            }
+        }
+    }
 
     private fun getTitle() = getString(R.string.title_character)
     private fun getSubtitle() = getString(R.string.subtitle_character)
 
     override fun onDestroyView() {
         super.onDestroyView()
+        characterDatabaseHelper.close()
         _binding = null
     }
 }

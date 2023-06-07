@@ -68,9 +68,6 @@
                                 android:src="@drawable/ic_add_char" />
                         </LinearLayout>
 
-
-
-
                         <TextView
                             android:id="@+id/char_name"
                             style="@style/NewsArticle.Title"
@@ -79,10 +76,8 @@
                             android:layout_alignParentBottom="true"
                             android:layout_gravity="center"
                             android:maxLines="1"
-                            android:text="@string/char_name_title"
-                            android:textAlignment="center"
-                            android:textAppearance="@style/AppearanceFoundation.Title"
-                            android:textSize="16sp" />
+                            android:text="21212221212121212"
+                            android:textAlignment="center" />
                     </RelativeLayout>
 
                     <LinearLayout

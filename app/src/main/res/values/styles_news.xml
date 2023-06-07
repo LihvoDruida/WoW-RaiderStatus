@@ -13,8 +13,8 @@
         <item name="android:shadowColor">?colorPrimary</item>
         <item name="android:textColorHint">?colorSecondary</item>
         <item name="android:singleLine">true</item>
-        <item name="android:textSize">20sp</item>
         <item name="android:maxLines">1</item>
+        <item name="android:textAppearance">@style/AppearanceFoundation.Title</item>
         <item name="android:padding">@dimen/overlain</item>
         <item name="android:textAllCaps">true</item>
         <item name="android:autoSizeTextType">uniform</item>

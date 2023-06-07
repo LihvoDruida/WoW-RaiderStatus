@@ -16,6 +16,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
@@ -111,19 +112,24 @@ class CharacterFragment : Fragment() {
             val realm = dialogBinding.realmEditText.text.toString()
             val region = dialogBinding.regionSpinner.selectedItem.toString()
             dialogBinding.nameEditText.requestFocus()
-            val character = Character(name, realm, region)
+            val character = Character(name, realm, region, null, "-", 0)
 
             if (name.isNotBlank() && realm.isNotBlank()) {
-                characterDatabaseHelper.saveCharacter(character)
-
-                // Додати персонажа до списку та оновити адаптер
-                characterList.add(character)
-                characterAdapter.notifyItemInserted(characterList.size - 1)
+                val existingCharacter = characterDatabaseHelper.searchCharacter(name, realm, region)
+                if (existingCharacter != null) {
+                    Toast.makeText(context, "Character already exists", Toast.LENGTH_SHORT).show()
+                    return@setOnClickListener
+                }
 
                 dialog.dismiss()
                 updateCharacterList()
                 if (internetAvailable) {
                     fetchChar()
+                    characterDatabaseHelper.saveCharacter(character)
+
+                    // Додати персонажа до списку та оновити адаптер
+                    characterList.add(character)
+                    characterAdapter.notifyItemInserted(characterList.size - 1)
                 }
             }
         }
@@ -150,14 +156,17 @@ class CharacterFragment : Fragment() {
         dialogBinding.addButton.isEnabled = isButtonEnabled
     }
 
-
-
     data class Character(
         val name: String,
         val realm: String,
         val region: String,
-        val characterData: CharacterData? = null
+        val characterData: CharacterData? = null,
+        val guild: String? = characterData?.guild?.name ?: "-",
+        val gear: Int = characterData?.gear?.item_level_equipped ?: 0
     )
+
+
+
 
     private class CharacterAdapter(
         private val characterList: MutableList<Character>
@@ -279,13 +288,22 @@ class CharacterFragment : Fragment() {
             holder.deleteButton.setOnClickListener {
                 val index = holder.adapterPosition
                 if (index != RecyclerView.NO_POSITION) {
-                    characterList.removeAt(index)
-                    notifyItemRemoved(index)
+                    val character = characterList[index]
 
-                    // Видалити персонажа з бази даних SQLite
-                    characterDatabaseHelper.deleteCharacter(character.name)
-
-                    Toast.makeText(context, "Персонаж видалено", Toast.LENGTH_SHORT).show()
+                    val alertDialogBuilder = AlertDialog.Builder(context)
+                    alertDialogBuilder.setTitle("Delete Character")
+                    alertDialogBuilder.setMessage("Are you sure you want to delete this character?")
+                    alertDialogBuilder.setPositiveButton("Delete") { _, _ ->
+                        // Remove character from the database
+                        characterDatabaseHelper.deleteCharacter(character.name)
+                        characterList.removeAt(index)
+                        notifyItemRemoved(index)
+                        Toast.makeText(context, "Character deleted", Toast.LENGTH_SHORT).show()
+                    }
+                    alertDialogBuilder.setNegativeButton("Cancel") { dialog, _ ->
+                        dialog.dismiss()
+                    }
+                    alertDialogBuilder.show()
                 }
             }
 
@@ -340,6 +358,7 @@ class CharacterFragment : Fragment() {
             }
         }
     }
+
     private fun fetchChar(){
         // Використовуємо корутину для виконання запитів паралельно
         GlobalScope.launch(Dispatchers.Main) {
@@ -350,6 +369,7 @@ class CharacterFragment : Fragment() {
             }
         }
     }
+
     private suspend fun fetchCharacterData(character: Character): CharacterData? {
         return suspendCoroutine { continuation ->
             CharacterDataFetcher(character).fetchCharacterData { characterData ->

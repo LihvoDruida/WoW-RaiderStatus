@@ -23,7 +23,7 @@ android {
         minSdk 29
         targetSdk 33
         versionCode 1
-        versionName "alpha 2"
+        versionName "alpha 3"
 
         vectorDrawables.useSupportLibrary = true
         ndk {

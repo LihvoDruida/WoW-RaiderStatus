@@ -13,11 +13,10 @@ import java.net.URL
 class CharacterDataFetcher(private val character: Character) {
 
     @OptIn(DelicateCoroutinesApi::class)
-    fun fetchCharacterData(callback: (CharacterData?) -> Unit) {
+    fun fetchCharacterData(callback: (CharacterData?, Any?) -> Unit) {
         GlobalScope.launch(Dispatchers.IO) {
             try {
-                val url =
-                    URL("https://raider.io/api/v1/characters/profile?region=${character.region}&realm=${character.realm}&name=${character.name}&fields=gear%2Cguild%2Craid_progression%2Cmythic_plus_scores_by_season%3Acurrent")
+                val url = URL("https://raider.io/api/v1/characters/profile?region=${character.region}&realm=${character.realm}&name=${character.name}&fields=gear%2Cguild%2Craid_progression%2Cmythic_plus_scores_by_season%3Acurrent")
                 val connection = url.openConnection() as HttpURLConnection
                 connection.requestMethod = "GET"
 
@@ -36,18 +35,18 @@ class CharacterDataFetcher(private val character: Character) {
 
                     // Повернути дані персонажа через зворотний виклик у головний потік
                     withContext(Dispatchers.Main) {
-                        callback.invoke(characterData)
+                        callback.invoke(characterData, null)
                     }
                 } else {
                     Log.e("CharacterDataFetcher", "HTTP Error: $responseCode")
                     withContext(Dispatchers.Main) {
-                        callback.invoke(null)
+                        callback.invoke(null, "HTTP Error: $responseCode")
                     }
                 }
             } catch (e: Exception) {
                 Log.e("CharacterDataFetcher", "Error: ${e.message}")
                 withContext(Dispatchers.Main) {
-                    callback.invoke(null)
+                    callback.invoke(null, "Error: ${e.message}")
                 }
             }
         }

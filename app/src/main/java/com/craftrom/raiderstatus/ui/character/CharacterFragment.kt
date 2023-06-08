@@ -38,8 +38,6 @@ import kotlinx.coroutines.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
-import kotlin.coroutines.resume
-import kotlin.coroutines.suspendCoroutine
 
 @OptIn(DelicateCoroutinesApi::class)
 class CharacterFragment : Fragment() {
@@ -124,7 +122,23 @@ class CharacterFragment : Fragment() {
                 dialog.dismiss()
                 updateCharacterList()
                 if (internetAvailable) {
-                    fetchChar()
+                    fetchCharacterData(character) { _, error ->
+                        if (error != null) {
+                            Toast.makeText(context, "Failed to find realm $realm or name $name in region $region", Toast.LENGTH_SHORT).show()
+                            fetchChar()
+                        } else {
+                            fetchChar()
+                            characterDatabaseHelper.saveCharacter(character)
+
+                            // Додати персонажа до списку та оновити адаптер
+                            characterList.add(character)
+                            characterAdapter.notifyItemInserted(characterList.size - 1)
+                        }
+                    }
+                } else {
+                    // Відсутність підключення до Інтернету
+                    Toast.makeText(context, "No Internet connection", Toast.LENGTH_SHORT).show()
+
                     characterDatabaseHelper.saveCharacter(character)
 
                     // Додати персонажа до списку та оновити адаптер
@@ -133,6 +147,7 @@ class CharacterFragment : Fragment() {
                 }
             }
         }
+
 
         dialog.setCancelable(true)
         dialog.dismissWithAnimation = true
@@ -359,24 +374,34 @@ class CharacterFragment : Fragment() {
         }
     }
 
-    private fun fetchChar(){
-        // Використовуємо корутину для виконання запитів паралельно
+    private fun fetchChar() {
         GlobalScope.launch(Dispatchers.Main) {
             characterList.forEachIndexed { index, character ->
-                val characterData = fetchCharacterData(character)
-                characterList[index] = character.copy(characterData = characterData)
-                characterAdapter.notifyItemChanged(index)
+                fetchCharacterData(character) { characterData, error ->
+                    if (error != null) {
+                        // Виникла помилка при отриманні даних персонажа
+                        Toast.makeText(context, "Failed to fetch character data: $error", Toast.LENGTH_SHORT).show()
+                    } else {
+                        characterList[index] = character.copy(characterData = characterData)
+                        characterAdapter.notifyItemChanged(index)
+                    }
+                }
             }
         }
     }
 
-    private suspend fun fetchCharacterData(character: Character): CharacterData? {
-        return suspendCoroutine { continuation ->
-            CharacterDataFetcher(character).fetchCharacterData { characterData ->
-                continuation.resume(characterData)
+    private fun fetchCharacterData(character: Character, callback: (CharacterData?, String?) -> Unit) {
+        CharacterDataFetcher(character).fetchCharacterData { characterData, error ->
+            if (error != null) {
+                callback(null, error.toString())
+            } else {
+                callback(characterData, null)
             }
         }
     }
+
+
+
 
     private fun getTitle() = getString(R.string.title_character)
     private fun getSubtitle() = getString(R.string.subtitle_character)

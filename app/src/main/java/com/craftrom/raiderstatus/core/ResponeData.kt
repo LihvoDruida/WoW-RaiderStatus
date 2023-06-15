@@ -165,6 +165,16 @@ data class MythicPlusSegmentData(
     val color: String
 )
 
+data class Guild(
+    val name: String,
+    val realm: String,
+    val faction: String,
+    val announce: String?,
+    val discord: String?,
+    val desc: String?
+)
+
+
 
 
 

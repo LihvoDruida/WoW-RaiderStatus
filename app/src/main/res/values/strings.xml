@@ -11,6 +11,8 @@
     <string name="subtitle_home">Next Period date and Affixes Information</string>
     <string name="title_character">Character</string>
     <string name="subtitle_character">Information about your characters</string>
+    <string name="title_guild_list">Guilds (UA)</string>
+    <string name="subtitle_guild_list">Explore the top guilds in Ukraine</string>
     <string name="title_about">About</string>
     <string name="subtitle_about">Delusion about us</string>
     
@@ -39,7 +41,7 @@
     <string name="support">Support Us</string>
     <string name="support_us_desc">Raider Status is, and always will be, free, and ad-free. You can show your support by making a donation, but please consider donating to the Armed Forces of Ukraine (ZSU), as it is thanks to them that I was able to create this program.</string>
 
-
+    <string name="empty">No found</string>
 
     <string name="todo" translatable="false">TODO</string>
 </resources>

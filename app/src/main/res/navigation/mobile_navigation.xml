@@ -56,4 +56,21 @@
             app:exitAnim="@anim/fade_out" />
     </fragment>
 
+    <fragment
+        android:id="@+id/nav_guild_list"
+        android:name="com.craftrom.raiderstatus.ui.guild.GuildListFragment"
+        android:label="@string/title_about"
+        tools:layout="@layout/fragment_guild_list" >
+        <action
+            android:id="@+id/action_nav_about_to_nav_home"
+            app:destination="@id/nav_home"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out" />
+        <action
+            android:id="@+id/action_nav_about_to_nav_char"
+            app:destination="@id/nav_char"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out" />
+    </fragment>
+
 </navigation>

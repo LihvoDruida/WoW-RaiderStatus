@@ -14,6 +14,10 @@
             android:id="@+id/nav_char"
             android:icon="@drawable/ic_char_v2"
             android:title="@string/title_character" />
+        <item
+            android:id="@+id/nav_guild_list"
+            android:icon="@drawable/ic_guild"
+            android:title="@string/title_guild_list" />
     </group>
     <group
         android:id="@+id/group2"

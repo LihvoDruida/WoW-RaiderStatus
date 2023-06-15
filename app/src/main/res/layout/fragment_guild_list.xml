@@ -1,0 +1,30 @@
+<!-- fragment_character.xml -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:gravity="center|center_horizontal|center_vertical">
+
+    <TextView
+        android:id="@+id/emptyHelp"
+        style="@style/AppearanceFoundation.Title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:drawablePadding="12dp"
+        android:singleLine="false"
+        android:text="@string/empty"
+        android:textAlignment="center"
+        android:textColor="?colorDisabledVariant"
+        android:textSize="16sp"
+        android:visibility="gone"
+        app:drawableTopCompat="@drawable/art_empty" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:visibility="visible"
+        android:id="@+id/guildRecyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center" />
+
+</LinearLayout>

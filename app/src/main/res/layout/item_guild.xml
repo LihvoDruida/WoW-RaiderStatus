@@ -1,0 +1,131 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cardGuildItem"
+        style="@style/WidgetFoundation.Card"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:focusable="false"
+        android:clickable="false"
+        android:hardwareAccelerated="true"
+        android:layout_marginStart="@dimen/l1"
+        android:layout_marginEnd="@dimen/l1"
+        android:layout_marginBottom="@dimen/l1"
+        android:layout_marginTop="@dimen/l_25"
+        android:paddingBottom="@dimen/l1"
+        android:layout_gravity="center"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/l1"
+            android:layout_marginBottom="@dimen/l1"
+            android:layout_marginStart="@dimen/l1"
+            android:layout_marginEnd="@dimen/l1">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:baselineAligned="false"
+                android:weightSum="3"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:id="@+id/block2"
+                    android:layout_width="48dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginEnd="2dp"
+                    android:baselineAligned="false"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:id="@+id/guildImage"
+                        style="@style/WidgetFoundation.Image.Big.Round"
+                        android:layout_width="match_parent"
+                        android:layout_height="48dp"
+                        android:src="@drawable/honorablemention_rank1"
+                        android:contentDescription="TODO" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/block3"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="4dp"
+                    android:layout_marginEnd="2dp"
+                    android:layout_weight="1"
+                    android:baselineAligned="false"
+                    android:orientation="vertical"
+                    android:weightSum="10">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:weightSum="1"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent">
+
+                        <TextView
+                            android:id="@+id/nameTextView"
+                            style="@style/AppearanceFoundation.Title"
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp"
+                            android:layout_weight="1"
+                            android:maxLines="1"
+                            android:text="nonce"
+                            android:textSize="16sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/factionTextView"
+                            style="@style/W.Home.Item"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="4dp"
+                            android:paddingStart="0dp"
+                            android:maxLines="1"
+                            android:text="@string/char_name_title"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Widget.ActionBar.Subtitle"
+                            android:textSize="12sp" />
+
+                        <TextView
+                            android:id="@+id/realmTextView"
+                            style="@style/W.Home.Item"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="4dp"
+                            android:paddingStart="0dp"
+                            android:maxLines="1"
+                            android:text="@string/char_name_title"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Widget.ActionBar.Subtitle"
+                            android:textSize="12sp" />
+
+                    </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/block4"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:baselineAligned="false"
+                    android:layout_marginStart="4dp"
+                    android:layout_weight="2"
+                    android:weightSum="10"
+                    android:orientation="vertical">
+                </LinearLayout>
+
+            </LinearLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.card.MaterialCardView>
+</LinearLayout>

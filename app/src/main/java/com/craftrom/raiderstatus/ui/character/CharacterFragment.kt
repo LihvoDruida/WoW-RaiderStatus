@@ -15,6 +15,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
@@ -65,11 +66,14 @@ class CharacterFragment : Fragment() {
         val internetAvailable = isInternetAvailable(requireContext())
         characterDatabaseHelper = CharacterDatabaseHelper(requireContext())
 
+        val mainActivity = requireActivity() as MainActivity
+        mainActivity.setToolbarText(getTitle(), getSubtitle())
+
         characterList = mutableListOf()
 
         binding.characterRecyclerView.apply {
             layoutManager = LinearLayoutManager(context)
-            characterAdapter = CharacterAdapter(characterList)
+            characterAdapter = CharacterAdapter(characterList, binding.emptyHelp, binding.characterRecyclerView)
             adapter = characterAdapter
         }
 
@@ -86,9 +90,10 @@ class CharacterFragment : Fragment() {
         if (internetAvailable) {
             fetchChar()
         }
-
+        characterAdapter.updateEmptyHelpVisibility()
         return view
     }
+
     private fun createBottomSheetDialog(context: Context): BottomSheetDialog {
         val dialog = BottomSheetDialog(context, R.style.ThemeBottomSheet)
         val dialogBinding = DialogCharacterBinding.inflate(LayoutInflater.from(context))
@@ -126,6 +131,7 @@ class CharacterFragment : Fragment() {
                         if (error != null) {
                             Toast.makeText(context, "Failed to find realm $realm or name $name in region $region", Toast.LENGTH_SHORT).show()
                             fetchChar()
+                            characterAdapter.updateEmptyHelpVisibility()
                         } else {
                             fetchChar()
                             characterDatabaseHelper.saveCharacter(character)
@@ -133,17 +139,12 @@ class CharacterFragment : Fragment() {
                             // Додати персонажа до списку та оновити адаптер
                             characterList.add(character)
                             characterAdapter.notifyItemInserted(characterList.size - 1)
+                            characterAdapter.updateEmptyHelpVisibility()
                         }
                     }
                 } else {
                     // Відсутність підключення до Інтернету
                     Toast.makeText(context, "No Internet connection", Toast.LENGTH_SHORT).show()
-
-                    characterDatabaseHelper.saveCharacter(character)
-
-                    // Додати персонажа до списку та оновити адаптер
-                    characterList.add(character)
-                    characterAdapter.notifyItemInserted(characterList.size - 1)
                 }
             }
         }
@@ -160,6 +161,7 @@ class CharacterFragment : Fragment() {
         characterList.clear()
         characterList.addAll(characters)
         characterAdapter.notifyDataSetChanged()
+        characterAdapter.updateEmptyHelpVisibility()
     }
 
 
@@ -184,7 +186,7 @@ class CharacterFragment : Fragment() {
 
 
     private class CharacterAdapter(
-        private val characterList: MutableList<Character>
+        private val characterList: MutableList<Character>, private val emptyHelp: TextView, private val characterRecyclerView: RecyclerView
     ) : RecyclerView.Adapter<CharacterAdapter.ViewHolder>() {
 
         inner class ViewHolder(val binding: ItemCharacterBinding) :
@@ -267,7 +269,7 @@ class CharacterFragment : Fragment() {
             binding.seasonTitle.text = getSeasonName(season.toString())
             binding.charName.text = character.characterData?.name ?: "-"
             binding.charName.setTextColor(classColor)
-            binding.charRegion.text = regionName
+            binding.charRegion.text = "${character.characterData?.realm} ($regionName)"
             binding.charFaction.text = factionName
             binding.raceText.text = character.characterData?.race ?: "-"
             binding.classText.text =
@@ -313,12 +315,14 @@ class CharacterFragment : Fragment() {
                         characterDatabaseHelper.deleteCharacter(character.name)
                         characterList.removeAt(index)
                         notifyItemRemoved(index)
+                        updateEmptyHelpVisibility()
                         Toast.makeText(context, "Character deleted", Toast.LENGTH_SHORT).show()
                     }
                     alertDialogBuilder.setNegativeButton("Cancel") { dialog, _ ->
                         dialog.dismiss()
                     }
                     alertDialogBuilder.show()
+
                 }
             }
 
@@ -350,6 +354,17 @@ class CharacterFragment : Fragment() {
 
         override fun getItemCount(): Int {
             return characterList.size
+        }
+
+
+        fun updateEmptyHelpVisibility() {
+            if (characterList.isNotEmpty()) {
+               characterRecyclerView.visibility = View.VISIBLE
+               emptyHelp.visibility = View.GONE
+            } else {
+                characterRecyclerView.visibility = View.GONE
+               emptyHelp.visibility = View.VISIBLE
+            }
         }
 
         private fun takeScreenshotOfView(view: View): Bitmap {
@@ -399,8 +414,6 @@ class CharacterFragment : Fragment() {
             }
         }
     }
-
-
 
 
     private fun getTitle() = getString(R.string.title_character)

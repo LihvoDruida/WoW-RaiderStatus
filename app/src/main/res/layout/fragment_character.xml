@@ -4,12 +4,26 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
+    <TextView
+        android:id="@+id/emptyHelp"
+        style="@style/AppearanceFoundation.Title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:drawablePadding="12dp"
+        android:singleLine="false"
+        android:text="@string/empty"
+        android:textAlignment="center"
+        android:layout_centerInParent="true"
+        android:textColor="?colorDisabledVariant"
+        android:textSize="16sp"
+        android:visibility="gone"
+        app:drawableTopCompat="@drawable/art_empty" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/characterRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_gravity="center"
-        android:paddingTop="@dimen/l1" />
+        android:layout_gravity="center" />
 
     <Button
         android:id="@+id/fab"

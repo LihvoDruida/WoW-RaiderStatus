@@ -23,7 +23,6 @@ import java.text.SimpleDateFormat
 import java.util.*
 import java.util.concurrent.TimeUnit
 
-
 class HomeFragment : Fragment() {
 
     private var _binding: FragmentHomeBinding? = null
@@ -53,18 +52,24 @@ class HomeFragment : Fragment() {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         val view = binding.root
 
-        val layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+        val layoutManager =
+            LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
         binding.homeDeviceWrapper.recyclerView.layoutManager = layoutManager
 
         val horizontalSpacing = resources.getDimensionPixelSize(R.dimen.margin_generic)
-        binding.homeDeviceWrapper.recyclerView.addItemDecoration(HorizontalSpaceItemDecoration(horizontalSpacing))
+        binding.homeDeviceWrapper.recyclerView.addItemDecoration(
+            HorizontalSpaceItemDecoration(
+                horizontalSpacing
+            )
+        )
 
         val mainActivity = requireActivity() as MainActivity
         mainActivity.setToolbarText(getTitle(), getSubtitle())
         binding.homeDeviceWrapper.homeMythicTitle.text = getString(R.string.mythic_plus)
         binding.homeRebootWrapper.homeRebootTitle.text = getString(R.string.home_reboot)
         val internetAvailable = Constants.isInternetAvailable(requireContext())
-        sharedPreferences = requireContext().getSharedPreferences("ApiData", Context.MODE_PRIVATE)
+        sharedPreferences =
+            requireContext().getSharedPreferences("ApiData", Context.MODE_PRIVATE)
 
         val savedAffixesJson = sharedPreferences.getString("affixes", null)
         if (internetAvailable) {
@@ -90,8 +95,8 @@ class HomeFragment : Fragment() {
     private fun fetchAffixes() {
         val affixFetcher = AffixFetcher { affixResponse ->
             requireActivity().runOnUiThread {
-                showAffixes(affixResponse.affix_details)
-                saveAffixes(affixResponse.affix_details)
+                showAffixes(affixResponse?.affix_details ?: emptyList())
+                saveAffixes(affixResponse?.affix_details ?: emptyList())
             }
         }
         affixFetcher.fetchAffixes()
@@ -129,14 +134,15 @@ class HomeFragment : Fragment() {
             val userTimeZoneFormat =
                 SimpleDateFormat(Constants.DATE_FORMAT_API, Locale.getDefault())
             userTimeZoneFormat.timeZone =
-                TimeZone.getDefault() // Використовуємо часовий пояс користувача
+                TimeZone.getDefault() // Use the user's time zone
             val userDate = userTimeZoneFormat.format(endDate as Date)
 
             val userEndDate = userTimeZoneFormat.parse(userDate)
 
-            val userDateFormat = SimpleDateFormat(Constants.DATE_FORMAT_USER, Locale.getDefault())
+            val userDateFormat =
+                SimpleDateFormat(Constants.DATE_FORMAT_USER, Locale.getDefault())
             userDateFormat.timeZone =
-                TimeZone.getDefault() // Використовуємо часовий пояс користувача
+                TimeZone.getDefault() // Use the user's time zone
             val restartDateText = userDateFormat.format(endDate)
 
             val currentTime = Calendar.getInstance().time
@@ -145,9 +151,9 @@ class HomeFragment : Fragment() {
             binding.homeRebootWrapper.homeRebootNextTime.text = restartDateText
             startCountdownTimer(diffInMillis)
 
-            savePeriods(periodsResponse) // Збереження даних про періоди
+            savePeriods(periodsResponse) // Save periods data
         } else {
-            loadSavedPeriods() // Відображення збережених даних про періоди у випадку відсутності даних з API
+            loadSavedPeriods() // Display saved periods data if API data is not available
         }
     }
 
@@ -195,7 +201,6 @@ class HomeFragment : Fragment() {
     private fun getTitle() = getString(R.string.title_home)
     private fun getSubtitle() = getString(R.string.subtitle_home)
 
-
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.main, menu)
     }
@@ -203,7 +208,7 @@ class HomeFragment : Fragment() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.action_settings -> {
-                // Ваш код обробки події
+                // Handle settings menu item click
                 true
             }
             else -> super.onOptionsItemSelected(item)
@@ -217,5 +222,4 @@ class HomeFragment : Fragment() {
         }
         _binding = null
     }
-
 }

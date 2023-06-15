@@ -13,8 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:clipToPadding="false"
-        android:orientation="vertical"
-        android:paddingTop="@dimen/l1">
+        android:orientation="vertical">
 
         <include
             android:id="@+id/home_device_wrapper"
@@ -24,6 +23,7 @@
             android:layout_marginStart="@dimen/l1"
             android:layout_marginEnd="@dimen/l1"
             android:layout_marginBottom="@dimen/l1"
+            android:layout_marginTop="@dimen/l_25"
             android:paddingBottom="@dimen/l1"
             android:layout_gravity="center"
             app:layout_constraintTop_toBottomOf="@+id/home_device_wrapper" />

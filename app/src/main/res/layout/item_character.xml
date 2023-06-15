@@ -16,6 +16,7 @@
         android:layout_marginStart="@dimen/l1"
         android:layout_marginEnd="@dimen/l1"
         android:layout_marginBottom="@dimen/l1"
+        android:layout_marginTop="@dimen/l_25"
         android:paddingBottom="@dimen/l1"
         android:layout_gravity="center"
         app:layout_constraintStart_toStartOf="parent"

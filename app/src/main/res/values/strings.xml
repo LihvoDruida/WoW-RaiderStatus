@@ -41,7 +41,14 @@
     <string name="support">Support Us</string>
     <string name="support_us_desc">Raider Status is, and always will be, free, and ad-free. You can show your support by making a donation, but please consider donating to the Armed Forces of Ukraine (ZSU), as it is thanks to them that I was able to create this program.</string>
 
+    <!-- Button -->
+    <string name="donate">Donate</string>
+
     <string name="empty">No found</string>
+
+    <string name="menu_open_in_browser">Open in browser</string>
+    <string name="menu_copy_link">Copy link</string>
+    <string name="copied_to_clipboard">Link copied to clipboard</string>
 
     <string name="todo" translatable="false">TODO</string>
 </resources>

@@ -19,25 +19,3 @@
 # If you keep the line number information, uncomment this to
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
-
-# Parcelable
--keepclassmembers class * implements android.os.Parcelable {
-    public static final ** CREATOR;
-}
-
-# Kotlin
--assumenosideeffects class kotlin.jvm.internal.Intrinsics {
-	public static void check*(...);
-	public static void throw*(...);
-}
--assumenosideeffects class java.util.Objects {
-    public static ** requireNonNull(...);
-}
-
-# Excessive obfuscation
--repackageclasses 'a'
--allowaccessmodification
--keepattributes Signature
--obfuscationdictionary ../dict.txt
--classobfuscationdictionary ../dict.txt
--packageobfuscationdictionary ../dict.txt

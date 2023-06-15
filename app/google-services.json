@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "426743262675",
+    "project_id": "raider-app-edc64",
+    "storage_bucket": "raider-app-edc64.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:426743262675:android:77c7666f82b91142629326",
+        "android_client_info": {
+          "package_name": "com.craftrom.raiderstatus"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "426743262675-2jf66u4v91dvl2a97fpqih6er3po6c0s.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.craftrom.raiderstatus",
+            "certificate_hash": "18a6f2f5717a96ebeac5c04a64ce06b325653713"
+          }
+        },
+        {
+          "client_id": "426743262675-e4hca8vbi94ss5oc2979se42cu6q4ivv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBkiBzDJe3pgxyQwkwFuJoOTFcjHICwz9s"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "426743262675-e4hca8vbi94ss5oc2979se42cu6q4ivv.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

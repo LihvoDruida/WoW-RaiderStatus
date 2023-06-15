@@ -134,9 +134,30 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="@dimen/l1"
                             android:layout_marginTop="@dimen/l_50"
+                            android:layout_marginBottom="@dimen/l_50"
                             android:layout_marginEnd="@dimen/l1"
                             android:text="@string/support_us_desc"
                             android:textAppearance="@style/AppearanceFoundation.Caption.Variant" />
+
+                        <FrameLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginStart="@dimen/l1"
+                            android:layout_marginEnd="@dimen/l1">
+
+
+                            <Button
+                                android:id="@+id/about_donate"
+                                style="@style/WidgetFoundation.Button.Text"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="end"
+                                android:text="@string/donate"
+                                android:textAllCaps="false"
+                                app:icon="@drawable/ic_donut"
+                                app:iconSize="24dp"/>
+
+                        </FrameLayout>
                     </LinearLayout>
                 </com.google.android.material.card.MaterialCardView>
 

@@ -1,5 +1,6 @@
 package com.craftrom.raiderstatus.ui.about
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -7,12 +8,14 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import com.craftrom.raiderstatus.BuildConfig
+import com.craftrom.raiderstatus.ItemWebViewActivity
 import com.craftrom.raiderstatus.MainActivity
 import com.craftrom.raiderstatus.R
+import com.craftrom.raiderstatus.databinding.FragmentAboutBinding
 
 class AboutFragment : Fragment() {
     private lateinit var versionApp: TextView
-    private var _binding: View? = null
+    private var _binding: FragmentAboutBinding? = null
     private val binding get() = _binding!!
 
     override fun onResume() {
@@ -26,16 +29,29 @@ class AboutFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = inflater.inflate(R.layout.fragment_about, container, false)
+        _binding = FragmentAboutBinding.inflate(inflater, container, false)
         val mainActivity = requireActivity() as MainActivity
         mainActivity.setToolbarText(getTitle(), getSubtitle())
 
-        versionApp = binding.findViewById(R.id.version)
+        versionApp = binding.version
 
         val versionName = BuildConfig.VERSION_NAME
         versionApp.text = versionName
 
-        return binding
+        binding.aboutDonate.setOnClickListener {
+            openDonate()
+        }
+
+        return binding.root
+    }
+
+    private fun openDonate() {
+        val uri = "https://lihvodruida.github.io/donate"
+        val intent = Intent(context, ItemWebViewActivity::class.java).apply {
+            putExtra("feedItemUrl", uri)
+            addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+        }
+        startActivity(intent)
     }
 
     override fun onDestroyView() {
